@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="appcolor">
+    <ion-title>
+      <ion-row>
+        <ion-col (click)="toggleMenu()" size="2">
+          <ion-icon name="menu-outline"></ion-icon>
+        </ion-col>
+        <ion-col size="8">Overview</ion-col>
+        <ion-col size="2"></ion-col>
+      </ion-row>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" *ngIf="auctionData.length > 0">
+
+  <ng-container *ngFor="let vehicle of auctionData; index as i">
+    <ion-card class="card-item">
+      <div class="vehicle-img">
+        <img src={{vehicle.associatedVehicle?.vehicleImages[0].url}} />
+        <div class="vehicle-bid-time">
+          <ion-icon name="timer-outline"></ion-icon>          {{vehicle.endingTime | timer}}
+        </div>
+        <div class="vehicle-price">
+          {{vehicle.currentHighestBidValue | currency:'EUR'}}
+        </div>
+        <div *ngIf="vehicle.amIHighestBidder; else lowBidder" class="vehicle-high-bid">
+          <img src="assets/icon/highbid.png" />
+        </div>
+        <ng-template #lowBidder>
+          <div class="vehicle-low-bid">
+            <img src="assets/icon/highbid.png" />
+          </div>
+        </ng-template>
+      </div>
+      <div class="vehicle-header">
+        <p>{{vehicle.label}}</p>
+      </div>
+
+      <div class="vehicle-footer">
+        <ion-row>
+          <ion-col size="3">{{vehicle.associatedVehicle.ez}}</ion-col>
+          <ion-col size="3">{{vehicle.associatedVehicle.mileageInKm}} km</ion-col>
+          <ion-col size="3">{{vehicle.associatedVehicle.fuelType | fuelType}}</ion-col>
+          <ion-col size="3">{{vehicle.associatedVehicle.transmission | transmission}}</ion-col>
+        </ion-row>
+      </div>
+
+    </ion-card>
+  </ng-container>
+
+</ion-content>

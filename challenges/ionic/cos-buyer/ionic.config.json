@@ -1,0 +1,7 @@
+{
+  "name": "COS Buyer",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
